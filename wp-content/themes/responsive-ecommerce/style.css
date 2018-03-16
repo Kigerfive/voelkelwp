@@ -1,0 +1,68 @@
+/*
+Theme Name: Responsive eCommerce
+Description: Responsive eCommerce is a multipurpose, responsive, SEO friendly, fully customizable and WooCommerce ready WordPress theme. it can be use to display informations, images, portfolio and sell products online. it is perfect theme for displaying business informations and online selling. Theme features: One Click Demo Import, Custom Logo, Social Profile, Easy to Customize, Custom Menu, Full Width Layout, Right Sidebar Layout, Left Sidebar Layout, Footer Widgets, Typography Options, WooCommerce Options, Blog Options, WooCommerce ready, Contact Form 7 ready, Elementor Page Builder ready, Translation ready. it is primarily designed for online shop however it can also be use for blog, photography, lifestyle, travel, gallery, event, startups, architecture, agency and firm, corporate businesses, medical, sport, landing page, one page, restaurant, affiliate, yoga and similar websites.
+Author: parkerarianna3
+Version: 1.0.3
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: two-columns, left-sidebar, right-sidebar, grid-layout, flexible-header, custom-background, custom-colors, custom-header, custom-menu, editor-style, custom-logo, featured-images, footer-widgets, full-width-template, microformats, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, blog, portfolio, e-commerce
+Text Domain: responsive-ecommerce
+Template: di-blog
+*/
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
+	border: 1px solid #F0F0F0;
+	overflow: hidden;
+}
+
+.woocommerce ul.products li.product .onsale, .woocommerce span.onsale {
+	margin: 3px 3px 0 0;
+	padding: 5px 10px;
+	line-height: 17px;
+	min-height: 0;
+	min-width: 0;
+}
+
+.woocommerce span.onsale {
+	border-radius: 20%;
+}
+
+.woocommerce ul.products li.product .star-rating {
+	display: none;
+}
+
+.woocommerce .woocommerce-result-count {
+	font-size: 12px;
+}
+
+.woocommerce .woocommerce-ordering select {
+	padding: 5px;
+	border: 1px dotted #A7A7A7;
+	margin: 2px 6px;
+	color: #828282;
+	background-color: #fbfbfb;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+	text-align: center;
+	margin-bottom: 6px;
+}
+
+.woocommerce ul.products li.product .price {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.woocommerce ul.products li.product .button {
+	margin: 0 auto;
+	display: table;
+}
+
+.woocommerce a.added_to_cart {
+	display: table;
+	margin: 0 auto;
+}
+
+.woocommerce-cart table.cart img {
+	width: 60px;
+}
