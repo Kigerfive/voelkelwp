@@ -330,22 +330,37 @@ if (currentUserIsNot('administrator', server.empty) and notEquals('', request.bo
 	block(id=99, category='privesc', description='WP Support Plus Responsive Ticket System <= 7.1.3 - Privilege Escalation', whitelist=0)
 
 if ((md5Equals('198aabe4bd99c673ae7afe8ebc4ed5e9', request.body.action) or md5Equals('b5005a70ff75a19720c2d62fe51232f9', request.body.action)) and md5Equals('f36aaae8c410d611c8e1059ad09986cd', request.md5Body['2570a32b634e95219aa02d322443bcad']) and lengthGreaterThan('0', request.md5Body.c75595cec687b4406b8db2b0073cf699) and match('/[^0-9\.\-]/', request.md5Body.fa597891da1abd2430fc0feb813bf33e)):
-	block(id=100, category='sqli', description='0-day', whitelist=0)
+	block(id=100, category='sqli', description='RegistrationMagic-Custom Registration Forms <= 3.7.9.1 - SQL injection', whitelist=0)
 
 if (md5Equals('a7462a4310fe32822cc2ce445865649c', request.body.action) and match('/(^|;|{|})O:+?\+*[0-9]+:(?!"(?:stdClass|phpFlickr_pager)")/i', request.body.pager)):
-	block(id=101, category='obji', description='0-day', whitelist=0)
+	block(id=101, category='obji', description='Flickr Gallery <= 1.5.2 - Object Injection', whitelist=0)
 
 if (match('/(^|;|{|})O:+?\+*[0-9]+:(?!"(?:stdClass)")/i', request.cookies.wpmudev_appointments)):
-	block(id=102, category='obji', description='0-day', whitelist=0)
+	block(id=102, category='obji', description='Appointments <= 2.2.1 - Object Injection', whitelist=0)
 
 if (match('#/wp\-admin/admin\-ajax\.php$#i', server.script_filename) and (md5Equals('da6c71b8bb99069bd8e2fde83d95cf0d', request.body.action, request.queryString.action) or md5Equals('144e471fa0e0005b146b3f10ed5f8192', request.body.action, request.queryString.action)) and match('/=form_id&/i', request.rawBody) and match('/3a2257505f5468656d6522/i', request.rawBody)):
-	block(id=104, category='sqli', description='FB6146')
+	block(id=104, category='sqli', description='Ultimate Form Builder Lite <= 1.3.6 - SQLi -> RCE via Obji')
 
 if (match('#/wp\-admin/admin\-ajax\.php$#i', server.script_filename) and (md5Equals('da6c71b8bb99069bd8e2fde83d95cf0d', request.body.action, request.queryString.action) or md5Equals('144e471fa0e0005b146b3f10ed5f8192', request.body.action, request.queryString.action)) and (match('/(?:^|&)(?:f|%66)(?:o|%6f)(?:r|%72)(?:m|%6d)(?:_|%5f)(?:d|%64)(?:a|%61)(?:t|%74)(?:a|%61)(?:\[|%5b)(.+?)(?:\]|%5d)(?:\[|%5b)(?:n|%6e)(?:a|%61)(?:m|%6d)(?:e|%65)(?:\]|%5d)=(?:f|%66)(?:o|%6f)(?:r|%72)(?:m|%6d)(?:_|%5f)(?:i|%69)(?:d|%64)&.*?(?:f|%66)(?:o|%6f)(?:r|%72)(?:m|%6d)(?:_|%5f)(?:d|%64)(?:a|%61)(?:t|%74)(?:a|%61)(?:\[|%5b)\1(?:\]|%5d)(?:\[|%5b)(?:v|%76)(?:a|%61)(?:l|%6c)(?:u|%75)(?:e|%65)(?:\]|%5d)=\d*[^\d&]+/i', request.rawBody) or match('/(?:^|&)(?:f|%66)(?:o|%6f)(?:r|%72)(?:m|%6d)(?:_|%5f)(?:d|%64)(?:a|%61)(?:t|%74)(?:a|%61)(?:\[|%5b)(.+?)(?:\]|%5d)(?:\[|%5b)(?:v|%76)(?:a|%61)(?:l|%6c)(?:u|%75)(?:e|%65)(?:\]|%5d)=\d*[^\d&]+[^&]*&.*?(?:f|%66)(?:o|%6f)(?:r|%72)(?:m|%6d)(?:_|%5f)(?:d|%64)(?:a|%61)(?:t|%74)(?:a|%61)(?:\[|%5b)\1(?:\]|%5d)(?:\[|%5b)(?:n|%6e)(?:a|%61)(?:m|%6d)(?:e|%65)(?:\]|%5d)=(?:f|%66)(?:o|%6f)(?:r|%72)(?:m|%6d)(?:_|%5f)(?:i|%69)(?:d|%64)(?:$|&)/i', request.rawBody))):
-	block(id=105, category='sqli', description='FB6146')
+	block(id=105, category='sqli', description='Ultimate Form Builder Lite <= 1.3.6 - SQLi -> RCE via Obji')
 
 if (equals('true', request.queryString.up_auto_log)):
 	block(id=106, category='auth-bypass', description='UserPro - User Profiles with Social Login <= 4.9.17 - Authentication Bypass')
+
+if (match('#/wp\-admin/admin\-ajax\.php$#i', server.script_filename) and lengthGreaterThan('0', request.body.before_html, request.queryString.before_html, request.body.after_html, request.queryString.after_html) and match('/^(?:nopriv_)?frm_forms_preview$/i', request.body.action, request.queryString.action)):
+	block(id=107, category='auth-bypass', description='Formidable Forms <= 2.05.03 - Multiple Vulnerabilities')
+
+if (currentUserIsNot('administrator', server.empty) and currentUserIsNot('editor', server.empty) and currentUserIsNot('author', server.empty) and currentUserIsNot('contributor', server.empty) and matchCount('/This\s+message\s+is\s+posted\s+here\s+using\s+XRumer/i', request.body, request.queryString)):
+	block(id=108, category='spam', score=100, description='XRumer/XEvil Spam')
+
+if (md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString['70b29c4920daf4e51e8175179027e668'])):
+	block(id=109, category='backdoor', description='Captcha <= 4.4.4 - Auth bypass and backdoor')
+
+if (match('#/plugin-update\.php$#i', server.script_filename) and md5Equals('a6105c0a611b41b08f1209506350279e', request.md5QueryString['73b3ebd2a14db9cb079d55fd1462ffdc'])):
+	block(id=110, category='auth-bypass', description='Captcha <= 4.4.4 - Auth bypass and backdoor')
+
+if (md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString['5f963373b673f6b4f9d95d5616c404aa']) or md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString['41b2003e2d5c44e8c2829dcad3b85c0a']) or md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString.ab5b6f32db34ee099f633e69fea35248) or md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString['9097db90ade3df959df94eb6447234dd']) or md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString['4a2a5d2c915a153376ed3010acc75a5a']) or md5Equals('73b3ebd2a14db9cb079d55fd1462ffdc', request.md5QueryString['1cae76951490f03f046be773e275cfd1'])):
+	block(id=111, category='backdoor', description='Captcha <= 4.4.4 - Auth bypass and backdoor')
 
 if (matchCount('/(^|;|{|})O:+?\+*[0-9]+:"WP_Theme"/i', request.headers, request.cookies, request.body, request.queryString)):
 	block(id=103, category='obji', score=100, description='PHP Object Injection')
